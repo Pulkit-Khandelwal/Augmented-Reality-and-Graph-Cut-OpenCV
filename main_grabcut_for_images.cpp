@@ -157,8 +157,8 @@ int main()
 		      cout<< width<<endl;
 		      cout<<"x"<<lilsum2<<"y"<<lilsum1<<endl;        
 		   }
-	  }
-	}
+	  	}
+	     }
 		cv::Rect rectangle(lilsum2,lilsum1,width,height);// The (x,y) position of the upper left corner of 
 		// a rectangle along with its length and height. This is used as a parameter for the grabCut function
 		//Variable declaration for the grabCut function
