@@ -1,4 +1,4 @@
-//This code detects a person or people using HoG Descriptors and saves it as a video with a black screen
+//This code detects a person (or people) using HoG Descriptors and saves it as a video with a black screen
 
 //Libraries called along with packages
 #include <iostream>
