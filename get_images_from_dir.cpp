@@ -5,17 +5,17 @@
 #include <iostream>
 using namespace cv;
 using namespace std;
-int main()
-{
 
+int main()
+ {
     Mat frame;
     VideoCapture capture;//("01.png");
     capture.set(CV_CAP_PROP_POS_AVI_RATIO, 1);
-   while(1)
+    while(1)
     {
        VideoCapture capture("%02d.png"); 
              
-    capture >> frame;
+        capture >> frame;
         capture.set(CV_CAP_PROP_POS_FRAMES, capture.get(CV_CAP_PROP_POS_FRAMES) - 2);
  
         imshow("frame",frame);
