@@ -1,2 +1,10 @@
-# Augmented-Reality-Paper
-Detection of Features to Track Objects and Segmentation Using GrabCut for Application in Marker-less Augmented Reality 
+Here you can find the code for the paper "[Detection of Features to Track Objects and Segmentation Using GrabCut for Application in Marker-less Augmented Reality](http://www.sciencedirect.com/science/article/pii/S1877050915022012)"
+
+Feel free to drop an email at: kpulkit95@gmail.com for any discussion related to this project.
+Please cite the paper as:
+
+Khandelwal, P., Swarnalatha, P., Bisht, N. and Prabu, S., 2015. Detection of Features to Track Objects and Segmentation Using GrabCut for Application in Marker-less Augmented Reality. Procedia Computer Science, 58, pp.698-705.
+
+Abstract:
+Augmented Reality applications have hovered itself over various platforms such as desktop and most recently to handheld devices such as mobile phones and tablets. Augmented Reality (AR) systems have mostly been limited to Head Worn Displays with start-ups such as Magic Leap and Occulus Rift making tremendous advancement in such AR and VR research applications facing a stiff competition with Software giant Microsoft which has recently introduced Holo Lens. AR refers to the augmentation or the conglomeration of virtual objects in the real world scenario which has a distinct but close resemblance to Virtual Reality (VR) systems which are computer simulated environments which render physical presence in imaginary world. Developers and hackers round the globe have directed their research interests in the development of AR and VR based applications especially in the domain of advertisement and gaming. Many open source libraries, SDKs and proprietary software are available worldwide for developers to make such systems. This paper describes an algorithm for an AR prototype which uses a marker less approach to track and segment out real world objects and then overlay the same on another real world scene. The algorithm was tested on Desktop. The results are comparable with other existing algorithms and outperform some of them in terms of robustness, speed, and accuracy, precision and timing analysis.
+
