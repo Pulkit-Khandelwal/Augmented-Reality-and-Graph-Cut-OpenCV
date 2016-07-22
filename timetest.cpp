@@ -24,33 +24,33 @@ int main()
 	DECLARE_TIMING(display_frame);
 	DECLARE_TIMING(write_frame);    
 
-START_TIMING(camera_open);    
-VideoCapture stream1(0);
-STOP_TIMING(camera_open);
+	START_TIMING(camera_open);    
+	VideoCapture stream1(0);
+	STOP_TIMING(camera_open);
 
-if(!stream1.isOpened())
-{
-cout <<"Cannot Open Camera";
+	if(!stream1.isOpened())
+		{
+			cout <<"Cannot Open Camera";
+		}
+	while(true)
+		{
+			Mat frame;
+			START_TIMING(read_frame);
+			stream1.read(frame);
+			STOP_TIMING(read_frame);
+			START_TIMING(display_frame);
+			imshow("cam", frame);
+			STOP_TIMING(display_frame);
+			START_TIMING(write_frame);
+			imwrite("frame.jpg",frame);
+			STOP_TIMING(write_frame);
+
+			SHOW_TIMING(camera_open, "Open the camera");
+			SHOW_TIMING(read_frame, "Read a frame");	
+			SHOW_TIMING(display_frame, "Display the frame");
+			SHOW_TIMING(write_frame, "Save a frame");
+		}
 }
-while(true)
-{
-Mat frame;
-START_TIMING(read_frame);
-stream1.read(frame);
-STOP_TIMING(read_frame);
-START_TIMING(display_frame);
-imshow("cam", frame);
-STOP_TIMING(display_frame);
-START_TIMING(write_frame);
-imwrite("frame.jpg",frame);
-STOP_TIMING(write_frame);
-
-    SHOW_TIMING(camera_open, "Open the camera");
-    SHOW_TIMING(read_frame, "Read a frame");	
-	SHOW_TIMING(display_frame, "Display the frame");
-	SHOW_TIMING(write_frame, "Save a frame");
-			}
-			}
 			
 
 
