@@ -50,9 +50,9 @@ int main (int argc, const char * argv[])
 
     if (!cap.isOpened())// Checks if there is a camera feed or not
         return -1;
- int cnt=0;
-   Mat img;
-   Mat frame;
+    int cnt=0;
+    Mat img;
+    Mat frame;
 
     HOGDescriptor hog; // Creates a variable for HoG Descriptor
     hog.setSVMDetector(HOGDescriptor::getDefaultPeopleDetector());
@@ -61,72 +61,72 @@ int main (int argc, const char * argv[])
     while (true)// Infinite Loop for Reading Frames for the length of the video
     {
         
-    START_TIMING(read_frame);
-    cap >> img;// Reads a frame from the camera
-    STOP_TIMING(read_frame);
-            if (!img.data)
+       START_TIMING(read_frame);
+       cap >> img;// Reads a frame from the camera
+       STOP_TIMING(read_frame);
+       if (!img.data)
             continue; 
 
-        START_TIMING(algorithm); 
+       START_TIMING(algorithm); 
 
-        vector<Rect> found, found_filtered;// Vectors for HoG
-        hog.detectMultiScale(img, found, 0, Size(8,8), Size(32,32), 1.05, 2);//Parameters of HoG
-        // The following loop checks for a person using HoG and alongwith that GrabCut is applied to
-        //remove the part we are interested in
-        size_t i, j;
+       vector<Rect> found, found_filtered;// Vectors for HoG
+       hog.detectMultiScale(img, found, 0, Size(8,8), Size(32,32), 1.05, 2);//Parameters of HoG
+       // The following loop checks for a person using HoG and alongwith that GrabCut is applied to
+       //remove the part we are interested in
+       size_t i, j;
         for (i=0; i<found.size(); i++)
-        {
+          {
             Rect r = found[i];
             for (j=0; j<found.size(); j++)
                 if (j!=i && (r & found[j])==r)
                     break;
             if (j==found.size())
                 found_filtered.push_back(r);
-        }
+          }
         for (i=0; i<found_filtered.size(); i++)
-        {
-        Rect r = found_filtered[i];
-        r.x += cvRound(r.width*0.1);
-        r.width = cvRound(r.width*0.8);
-        r.y += cvRound(r.height*0.06);
-        r.height = cvRound(r.height*0.9);
-        rectangle(img, r.tl(), r.br(), cv::Scalar(0,0,0), 2);
-        cv::Mat result;
-        cv::Mat bgModel,fgModel; 
-        cv::grabCut(img,    
+          {
+            Rect r = found_filtered[i];
+            r.x += cvRound(r.width*0.1);
+            r.width = cvRound(r.width*0.8);
+            r.y += cvRound(r.height*0.06);
+            r.height = cvRound(r.height*0.9);
+            rectangle(img, r.tl(), r.br(), cv::Scalar(0,0,0), 2);
+            cv::Mat result;
+            cv::Mat bgModel,fgModel; 
+            cv::grabCut(img,    
             result,   
             r,
             bgModel,fgModel,
             10,        
             cv::GC_INIT_WITH_RECT); 
 
-cv::Mat foreground(img.size(),CV_8UC3,cv::Scalar(0,0,0));
-// A variable foreground is declared which stores a black background
-img.copyTo(foreground,result); 
-//The orginial image i.e. a frame is copied onto the black background with the grabcut applied.
-//So, we get our final result where there is a person on a black background
+            cv::Mat foreground(img.size(),CV_8UC3,cv::Scalar(0,0,0));
+            // A variable foreground is declared which stores a black background
+            img.copyTo(foreground,result); 
+            //The orginial image i.e. a frame is copied onto the black background with the grabcut applied.
+            //So, we get our final result where there is a person on a black background
 
-STOP_TIMING(algorithm); 
+            STOP_TIMING(algorithm); 
 
-namedWindow( "Foreground", CV_WINDOW_AUTOSIZE );//Creates a Window
-imshow("Foreground",foreground);//Shows the result
-
-    START_TIMING(write_video); 
-    oVideoWriter.write(foreground);// Writes the final result and saves it as a file
-    STOP_TIMING(write_video); 
+            namedWindow( "Foreground", CV_WINDOW_AUTOSIZE );//Creates a Window
+            imshow("Foreground",foreground);//Shows the result
+            
+            START_TIMING(write_video); 
+            oVideoWriter.write(foreground);// Writes the final result and saves it as a file
+            STOP_TIMING(write_video); 
    
-}                   
-    SHOW_TIMING(video_open, "Open the video");
-    SHOW_TIMING(write_video, "Write the video");    
-    SHOW_TIMING(algorithm, "The Algorithm");
-    SHOW_TIMING(read_frame, "Read the frame");
-    waitKey(600);
+           }                   
+        SHOW_TIMING(video_open, "Open the video");
+        SHOW_TIMING(write_video, "Write the video");    
+        SHOW_TIMING(algorithm, "The Algorithm");
+        SHOW_TIMING(read_frame, "Read the frame");
+        waitKey(600);
     
     // When the entire video is read the code is terminated
-    if(img.empty())
-    {
+          if(img.empty())
+           {
             break;
-        }
+            }
     }
       return 0; 
 } 
